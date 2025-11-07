@@ -1,18 +1,29 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const restaurantSchema = new mongoose.Schema({
-  owner_id: {
+  owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
   },
-  name: { type: String, required: true },
-  address: { type: String },
-  contact: { type: String },
-  isOpen: { type: Boolean, default: true },
-  created_at: { type: Date, default: Date.now },
+  name: {
+    type: String,
+    required: true,
+  },
+  orders: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Order",
+      required: true,
+    },
+  ],
+  dishes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Dish",
+      required: true,
+    },
+  ],
 });
 
-restaurantSchema.index({ owner_id: 1 });
-
-module.exports = mongoose.model("Restaurant", restaurantSchema);
+export const Restaurant = mongoose.model("Restaurant", restaurantSchema);

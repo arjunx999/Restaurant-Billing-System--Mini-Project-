@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import { connectDB } from "./db.js";
 import authRoutes from "./routes/authRoutes.js";
 import dishRoutes from "./routes/dishRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
 
 dotenv.config();
 
@@ -15,6 +16,8 @@ app.use(cors());
 app.use("/auth", authRoutes);
 
 app.use("/dish", dishRoutes);
+
+app.use("/order", orderRoutes);
 
 const PORT = process.env.PORT || 9999;
 connectDB().then(() => {

@@ -46,3 +46,16 @@ export const deleteDish = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+export const getDishes = async (req, res) => {
+  try {
+    const restaurant = req.user.restaurant;
+
+    const dishes = await Dish.find({ restaurant });
+
+    return res.status(200).json({ dishes });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: "Server error" });
+  }
+};
